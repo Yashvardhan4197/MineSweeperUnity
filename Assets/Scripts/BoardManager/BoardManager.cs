@@ -1,10 +1,10 @@
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoardManager : MonoBehaviour
+public class BoardManager 
 {
+    /*
     private static BoardManager instance;
     public static BoardManager Instance { get { return instance; } }
 
@@ -18,48 +18,55 @@ public class BoardManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+    }*/
+    private GameObject gridPrefab;
+    private GameObject boardPrefab;
+    private Transform startPos;
 
-    [SerializeField] GameObject gridPrefab;
-    [SerializeField] GameObject boardPrefab;
-    [SerializeField] Transform startPos;
 
-
-    [SerializeField] int boardRows;
-    [SerializeField] int boardCols;
-    [SerializeField] float spacing;
-    [SerializeField] float padding;
-    [SerializeField] int bombNumber;
+    private int boardRows;
+    private int boardCols;
+    private float spacing;
+    private float padding;
 
     private GridSpawner gridSpawner;
     private BombSpawner bombSpawner;
     private WinManager winManager;
     private bool FirstGridObjectClickCheck;
     private List<GridObject> gridObjects;
-    private void Start()
+    public BoardManager(GameObject boardPrefab,GameObject gridPrefab,Transform boardStartPos,float boardPadding)
     {
-        gridSpawner = new GridSpawner(gridPrefab,boardRows,boardCols,spacing);
-        bombSpawner = new BombSpawner(bombNumber);
-        winManager = new WinManager();
-        StartGame();
-    }
-
-    private void StartGame()
-    {
+        this.gridPrefab = gridPrefab;
+        this.boardPrefab = boardPrefab;
+        startPos = boardStartPos;
+        padding = boardPadding;
         Init();
     }
 
-    private void Init()
+    public void StartGame(int bombNumber,int boardRows,int boardCols)
     {
+        bombSpawner.SetBombNumber(bombNumber);
+        gridSpawner.Init(boardRows,boardCols);
+        winManager.SetTotalBombs(bombNumber);
+        this.boardCols = boardCols;
+        this.boardRows= boardRows;
         InstantiateBoard();
         gridObjects = gridSpawner.SpawnGrid();
         FirstGridObjectClickCheck = true;
     }
 
+    private void Init()
+    {
+        gridSpawner = new GridSpawner(gridPrefab, spacing);
+        bombSpawner = new BombSpawner();
+        winManager = new WinManager();
+
+    }
+
     private void InstantiateBoard()
     {
-        GameObject board=Instantiate(boardPrefab,new Vector3(0,0,0),transform.rotation);
-        board.GetComponent<RectTransform>().SetParent(FindObjectOfType<Canvas>().transform);
+        GameObject board=Object.Instantiate(boardPrefab,new Vector3(0,0,0),boardPrefab.transform.rotation);
+        board.GetComponent<RectTransform>().SetParent(Object.FindObjectOfType<Canvas>().transform);
         board.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
         float totalWidth= (gridPrefab.GetComponent<RectTransform>().rect.width+spacing)*boardCols-spacing;
         float totalHeight=(gridPrefab.GetComponent<RectTransform>().rect.height+spacing)*boardRows-spacing;
@@ -102,7 +109,7 @@ public class BoardManager : MonoBehaviour
         {
             OpenBoxes(currentGridObject,currentRows,currentCols);
         }
-        winManager.CheckWinCondition(gridObjects, bombNumber);
+        winManager.CheckWinCondition(gridObjects);
     }
 
     private void OpenBoxes(GridObject currentGridObject,int i,int j)

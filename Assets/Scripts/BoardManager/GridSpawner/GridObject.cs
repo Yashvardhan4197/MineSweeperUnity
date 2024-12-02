@@ -23,7 +23,7 @@ public class GridObject : MonoBehaviour
     private void OnGridObjectClicked()
     {
         //GridSpawner.Instance.OnGridObjectClicked(this);
-        BoardManager.Instance.OnGridObjectSelected(this);
+        GameService.Instance.BoardManager.OnGridObjectSelected(this);
     }
 
     public int GetGridObjectNumber() => gridObjectNumber;

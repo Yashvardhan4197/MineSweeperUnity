@@ -14,16 +14,25 @@ public class GridSpawner
     private Vector2 startPos;
     private RectTransform parentTransform;
 
-    public GridSpawner(GameObject gridPrefab, int rows, int cols,float spacing)
+    public GridSpawner(GameObject gridPrefab,float spacing)
     {
         this.gridPrefab = gridPrefab;
+        this.spacing = spacing;
+    }
+
+    public void Init(int rows, int cols)
+    {
         this.rows = rows;
         this.col = cols;
-        this.spacing = spacing;
     }
 
     public List<GridObject> SpawnGrid()
     {
+        foreach(GridObject gridObject in gridObjects)
+        {
+            Object.Destroy(gridObject.gameObject);
+        }
+        gridObjects.Clear();
         gridprefabHeight = gridPrefab.GetComponent<RectTransform>().rect.height;
         gridprefabWidth = gridPrefab.GetComponent<RectTransform>().rect.width;
         for (int i=0;i<rows;i++)

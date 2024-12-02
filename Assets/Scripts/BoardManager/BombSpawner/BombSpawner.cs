@@ -6,14 +6,19 @@ public class BombSpawner
 {
     private int bombNumber;
 
-    public BombSpawner(int bombNumber)
+    public BombSpawner()
+    {
+        
+    }
+
+    public void SetBombNumber(int bombNumber)
     {
         this.bombNumber = bombNumber;
     }
 
     public void SpawnBombs(int currentRow,int currentCol, int totalCols, int totalRows)
     {
-        List<GridObject> gridObjects=BoardManager.Instance.GetGridObjects();
+        List<GridObject> gridObjects=GameService.Instance.BoardManager.GetGridObjects();
         List<int> nonBombIndexes= GetNonBombIndexes(gridObjects,currentRow,currentCol,totalCols, totalRows);
         int temp2=bombNumber;
         while(temp2!=0)
