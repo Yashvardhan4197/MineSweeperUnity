@@ -10,6 +10,7 @@ public class BoardManager
     private Transform startPos;
     private int boardRows;
     private int boardCols;
+    private int bombNumber;
     private float spacing;
     private float padding;
     private GridSpawner gridSpawner;
@@ -17,7 +18,7 @@ public class BoardManager
     private WinManager winManager;
     private bool FirstGridObjectClickCheck;
     private List<GridObject> gridObjects;
-
+    private GameObject board;
     public BoardManager(GameObject boardPrefab,GameObject gridPrefab,GameObject boardHolder,Transform boardStartPos,float boardPadding)
     {
         this.gridPrefab = gridPrefab;
@@ -35,14 +36,40 @@ public class BoardManager
         winManager.SetTotalBombs(bombNumber);
         this.boardCols = boardCols;
         this.boardRows= boardRows;
-        GameObject board=InstantiateBoard();
+        this.bombNumber = bombNumber;
+        board=InstantiateBoard();
         gridObjects = gridSpawner.SpawnGrid();
         if (boardCols <= 10)
         {
-            board.transform.localScale = new Vector3(2, 2, 0);
+            board.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+        }
+        if(boardCols>=15||boardRows>=15)
+        {
+            board.transform.localScale = new Vector3(1.3f, 1.3f, 0);
         }
         FirstGridObjectClickCheck = true;
     }
+
+
+    public void RestartGame()
+    {
+        Object.Destroy(board.gameObject);
+        bombSpawner.SetBombNumber(bombNumber);
+        gridSpawner.Init(boardRows, boardCols);
+        winManager.SetTotalBombs(bombNumber);
+        board = InstantiateBoard();
+        gridObjects = gridSpawner.SpawnGrid();
+        if (boardCols <= 10)
+        {
+            board.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+        }
+        if (boardCols >= 15 || boardRows >= 15)
+        {
+            board.transform.localScale = new Vector3(1.3f, 1.3f, 0);
+        }
+        FirstGridObjectClickCheck = true;
+    }
+
 
     private void Init()
     {

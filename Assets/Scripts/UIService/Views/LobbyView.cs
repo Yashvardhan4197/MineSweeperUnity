@@ -25,10 +25,9 @@ public class LobbyView : MonoBehaviour
     [SerializeField] int maxColsAccepted;
     [SerializeField] int minRowsAccepted;
     [SerializeField] int maxRowsAccepted;
-    private int maxBombsAccepted;
+
     private void Start()
     {
-        this.gameObject.SetActive(true);
         startButton.onClick.AddListener(OnStartGameButtonClicked);
         exitButton.onClick.AddListener(ExitGame);
 
@@ -39,7 +38,6 @@ public class LobbyView : MonoBehaviour
         bombNumberSlider.onValueChanged.AddListener(ChangeBombValue);
         setGridAndStartButton.onClick.AddListener(StartGame);
         GoBackFromSetGridPopUpButton.onClick.AddListener(GobackToLobby);
-        SetGridPopUp.SetActive(false);
     }
 
     private void InitializeSliderValues()
@@ -55,11 +53,6 @@ public class LobbyView : MonoBehaviour
         ChangeColumnsValue(minColsAccepted);
 
         ChangeBombMaxValue((lobbyController.BoardRows * lobbyController.BoardCols) - 8);
-    }
-
-    private void GobackToLobby()
-    {
-        SetGridPopUp.SetActive(false);
     }
 
     private void ChangeBombMaxValue(int bomb)
@@ -117,6 +110,7 @@ public class LobbyView : MonoBehaviour
     private void StartGame()
     {
         lobbyController.StartGame();
+
         this.gameObject.SetActive(false);
         SetGridPopUp.SetActive(false);
     }
@@ -132,4 +126,10 @@ public class LobbyView : MonoBehaviour
         SetGridPopUp.SetActive(false);
         InitializeSliderValues();
     }
+
+    private void GobackToLobby()
+    {
+        SetGridPopUp.SetActive(false);
+    }
+
 }

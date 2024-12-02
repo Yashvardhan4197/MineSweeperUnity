@@ -18,6 +18,12 @@ public class LobbyController
         lobbyView.SetController(this);
     }
 
+    public void OpenLobbyScreen()
+    {
+        lobbyView.OpenLobby();
+    }
+
+
     public void ExitGame()
     {
         Application.Quit();
@@ -26,6 +32,7 @@ public class LobbyController
     public void StartGame()
     {
         GameService.Instance.BoardManager.StartGame(bombNumber,boardRows,boardCols);
+        GameService.Instance.UIService.GetInGameUIController().OnGameStart();
     }
 
     public void SetBoardCols(int boardCols)=>this.boardCols = boardCols;

@@ -23,14 +23,11 @@ public class GameService : MonoBehaviour
     [SerializeField] GameObject boardPrefab;
     [SerializeField] GameObject boardHolder;
     [SerializeField] Transform startPos;
-    [SerializeField] int boardRows;
-    [SerializeField] int boardCols;
-    [SerializeField] float spacing;
     [SerializeField] float padding;
-    [SerializeField] int bombNumber;
 
     //VIEWS
     [SerializeField] LobbyView lobbyView;
+    [SerializeField] InGameUIView inGameUIView;
 
     //Services
     private BoardManager boardManager;
@@ -42,12 +39,12 @@ public class GameService : MonoBehaviour
     private void Init()
     {
         boardManager=new BoardManager(boardPrefab,gridPrefab,boardHolder,startPos,padding);
-        uIService= new UIService(lobbyView);
-        StartGame();
+        uIService= new UIService(lobbyView,inGameUIView);
+        OpenLobby();
     }
-    public void StartGame()
+    public void OpenLobby()
     {
-        boardManager.StartGame(bombNumber,boardRows,boardCols);
+        uIService.GetLobbyController().OpenLobbyScreen();
     }
 
     public void EndGame()
