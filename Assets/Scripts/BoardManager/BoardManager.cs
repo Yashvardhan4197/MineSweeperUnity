@@ -50,8 +50,12 @@ public class BoardManager
         winManager.SetTotalBombs(bombNumber);
         this.boardCols = boardCols;
         this.boardRows= boardRows;
-        InstantiateBoard();
+        GameObject board=InstantiateBoard();
         gridObjects = gridSpawner.SpawnGrid();
+        if (boardCols <= 10)
+        {
+            board.transform.localScale = new Vector3(2, 2, 0);
+        }
         FirstGridObjectClickCheck = true;
     }
 
@@ -63,7 +67,7 @@ public class BoardManager
 
     }
 
-    private void InstantiateBoard()
+    private GameObject InstantiateBoard()
     {
         GameObject board=Object.Instantiate(boardPrefab,new Vector3(0,0,0),boardPrefab.transform.rotation);
         board.GetComponent<RectTransform>().SetParent(Object.FindObjectOfType<Canvas>().transform);
@@ -78,6 +82,7 @@ public class BoardManager
             boardPos.y + (totalHeight / 2)- (gridPrefab.GetComponent<RectTransform>().rect.height / 2), startPos.position.z);
         
         gridSpawner.SetTransform(newStartPos,board.GetComponent<RectTransform>());
+        return board;
     }
 
     public void OnGridObjectSelected(GridObject currentGridObject)
