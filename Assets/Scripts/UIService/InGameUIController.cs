@@ -8,6 +8,7 @@ public class InGameUIController
     {
         this.inGameUIView = inGameUIView;
         inGameUIView.SetController(this);
+        GameService.Instance.STARTGAME += OnGameStart;
     }
 
     public void OnGameStart()

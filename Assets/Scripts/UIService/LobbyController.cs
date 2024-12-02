@@ -31,6 +31,7 @@ public class LobbyController
 
     public void StartGame()
     {
+        GameService.Instance.STARTGAME.Invoke();
         GameService.Instance.BoardManager.StartGame(bombNumber,boardRows,boardCols);
         GameService.Instance.UIService.GetInGameUIController().OnGameStart();
     }

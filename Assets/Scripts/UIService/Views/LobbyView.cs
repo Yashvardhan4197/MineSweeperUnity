@@ -125,6 +125,9 @@ public class LobbyView : MonoBehaviour
         this.gameObject.SetActive(true);
         SetGridPopUp.SetActive(false);
         InitializeSliderValues();
+        boardColsSlider.value=minColsAccepted;
+        boardRowsSlider.value=minRowsAccepted;
+        bombNumberSlider.value = 0;
     }
 
     private void GobackToLobby()

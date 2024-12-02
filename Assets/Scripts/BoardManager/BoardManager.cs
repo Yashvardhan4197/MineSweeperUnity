@@ -31,6 +31,7 @@ public class BoardManager
 
     public void StartGame(int bombNumber,int boardRows,int boardCols)
     {
+        Object.Destroy(board?.gameObject);
         bombSpawner.SetBombNumber(bombNumber);
         gridSpawner.Init(boardRows,boardCols);
         winManager.SetTotalBombs(bombNumber);

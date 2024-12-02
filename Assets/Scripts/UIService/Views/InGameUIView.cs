@@ -75,6 +75,7 @@ public class InGameUIView : MonoBehaviour
         this.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(true);
         popUpWindow?.SetActive(false);
+        gamePaused = false;
     }
 
     public void OnGameWon()

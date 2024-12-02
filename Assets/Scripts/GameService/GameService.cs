@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameService : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class GameService : MonoBehaviour
     public BoardManager BoardManager {  get { return boardManager; } }
     public UIService UIService { get { return uIService; } }
 
+    //EVENTS
+    public UnityAction STARTGAME;
 
     private void Init()
     {
