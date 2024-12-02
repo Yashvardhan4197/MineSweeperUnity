@@ -18,25 +18,31 @@ public class GameService : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    //DATA
     [SerializeField] GameObject gridPrefab;
     [SerializeField] GameObject boardPrefab;
+    [SerializeField] GameObject boardHolder;
     [SerializeField] Transform startPos;
-
-
     [SerializeField] int boardRows;
     [SerializeField] int boardCols;
     [SerializeField] float spacing;
     [SerializeField] float padding;
     [SerializeField] int bombNumber;
 
+    //VIEWS
+    [SerializeField] LobbyView lobbyView;
+
+    //Services
     private BoardManager boardManager;
+    private UIService uIService;
     public BoardManager BoardManager {  get { return boardManager; } }
+    public UIService UIService { get { return uIService; } }
 
 
     private void Init()
     {
-        boardManager=new BoardManager(boardPrefab,gridPrefab,startPos,padding);
+        boardManager=new BoardManager(boardPrefab,gridPrefab,boardHolder,startPos,padding);
+        uIService= new UIService(lobbyView);
         StartGame();
     }
     public void StartGame()

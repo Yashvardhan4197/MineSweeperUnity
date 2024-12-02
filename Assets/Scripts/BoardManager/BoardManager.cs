@@ -4,40 +4,25 @@ using UnityEngine;
 
 public class BoardManager 
 {
-    /*
-    private static BoardManager instance;
-    public static BoardManager Instance { get { return instance; } }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }*/
     private GameObject gridPrefab;
     private GameObject boardPrefab;
+    private GameObject boardHolder;
     private Transform startPos;
-
-
     private int boardRows;
     private int boardCols;
     private float spacing;
     private float padding;
-
     private GridSpawner gridSpawner;
     private BombSpawner bombSpawner;
     private WinManager winManager;
     private bool FirstGridObjectClickCheck;
     private List<GridObject> gridObjects;
-    public BoardManager(GameObject boardPrefab,GameObject gridPrefab,Transform boardStartPos,float boardPadding)
+
+    public BoardManager(GameObject boardPrefab,GameObject gridPrefab,GameObject boardHolder,Transform boardStartPos,float boardPadding)
     {
         this.gridPrefab = gridPrefab;
         this.boardPrefab = boardPrefab;
+        this.boardHolder = boardHolder;
         startPos = boardStartPos;
         padding = boardPadding;
         Init();
@@ -82,6 +67,7 @@ public class BoardManager
             boardPos.y + (totalHeight / 2)- (gridPrefab.GetComponent<RectTransform>().rect.height / 2), startPos.position.z);
         
         gridSpawner.SetTransform(newStartPos,board.GetComponent<RectTransform>());
+        board.GetComponent<RectTransform>().SetParent(boardHolder.transform);
         return board;
     }
 
