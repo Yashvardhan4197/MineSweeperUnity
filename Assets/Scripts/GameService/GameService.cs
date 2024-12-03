@@ -29,7 +29,7 @@ public class GameService : MonoBehaviour
     //VIEWS
     [SerializeField] LobbyView lobbyView;
     [SerializeField] InGameUIView inGameUIView;
-
+    [SerializeField] BoardSetPopUpView boardSetPopUpView;
     //Services
     private BoardManager boardManager;
     private UIService uIService;
@@ -42,7 +42,7 @@ public class GameService : MonoBehaviour
     private void Init()
     {
         boardManager=new BoardManager(boardPrefab,gridPrefab,boardHolder,startPos,padding);
-        uIService= new UIService(lobbyView,inGameUIView);
+        uIService= new UIService(lobbyView,inGameUIView,boardSetPopUpView);
         OpenLobby();
     }
     public void OpenLobby()

@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +30,7 @@ public class InGameUIView : MonoBehaviour
 
     private void OpenSetGridButton()
     {
-        Debug.Log("hello bitch");
+        GameService.Instance.UIService.GetBoardSetPopUpController().OpenPopUp();
     }
 
     private void ExitToLobby()
