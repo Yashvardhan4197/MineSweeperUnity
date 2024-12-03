@@ -24,10 +24,10 @@ public class InGameUIController
     }
 
 
-    //Working
     public void RestartGame()
     {
         GameService.Instance.BoardManager.RestartGame();
+
     }
 
     public void GameWon()
@@ -43,5 +43,10 @@ public class InGameUIController
     public void ExitGame()
     {
         GameService.Instance.UIService.GetLobbyController().OpenLobbyScreen();
+    }
+
+    public void SetMarkedBombUI(int markedBombs, int totalBombs)
+    {
+        inGameUIView.SetMarkedBombUI(markedBombs, totalBombs);
     }
 }

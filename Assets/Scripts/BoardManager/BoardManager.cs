@@ -38,31 +38,16 @@ public class BoardManager
 
     public void StartGame(int bombNumber,int boardRows,int boardCols)
     {
-        Object.Destroy(board?.gameObject);
-        bombSpawner.SetBombNumber(bombNumber);
-        gridSpawner.Init(boardRows,boardCols);
-        winManager.SetTotalBombs(bombNumber);
         this.boardCols = boardCols;
-        this.boardRows= boardRows;
+        this.boardRows = boardRows;
         this.bombNumber = bombNumber;
-        board=InstantiateBoard();
-        gridObjects = gridSpawner.SpawnGrid();
-        if (boardCols <= 10)
-        {
-            board.transform.localScale = new Vector3(1.5f, 1.5f, 0);
-        }
-        if(boardCols>=15||boardRows>=15)
-        {
-            board.transform.localScale = new Vector3(1.3f, 1.3f, 0);
-        }
-        FirstGridObjectClickCheck = true;
-        markedBombs = 0;
+        RestartGame();
     }
 
 
     public void RestartGame()
     {
-        Object.Destroy(board.gameObject);
+        Object.Destroy(board?.gameObject);
         bombSpawner.SetBombNumber(bombNumber);
         gridSpawner.Init(boardRows, boardCols);
         winManager.SetTotalBombs(bombNumber);
@@ -77,6 +62,8 @@ public class BoardManager
             board.transform.localScale = new Vector3(1.3f, 1.3f, 0);
         }
         FirstGridObjectClickCheck = true;
+        markedBombs = 0;
+        GameService.Instance.UIService.GetInGameUIController().SetMarkedBombUI(MarkedBombs, bombNumber);
     }
 
 
@@ -130,7 +117,6 @@ public class BoardManager
 
         if (currentGridObject.GetBomb() == true)
         {
-            Debug.Log("You Lost");
             currentGridObject.ExplodeBomb();
             GameService.Instance.LOSTGAME?.Invoke();
         }
@@ -288,10 +274,6 @@ public class BoardManager
         }
     }
 
-    public GridSpawner GetGridSpawner() => gridSpawner;
-
-    public BombSpawner GetBombSpawner() => bombSpawner;
-
     public List<GridObject> GetGridObjects() => gridObjects;
 
     public void MarkGridObject(GridObject gridObject)
@@ -311,6 +293,13 @@ public class BoardManager
                     markedBombs++;
                 }
             }
+            GameService.Instance.UIService.GetInGameUIController().SetMarkedBombUI(MarkedBombs, bombNumber);
         }
+        
+    }
+    public void ReduceMarkedNumber()
+    {
+        markedBombs--;
+        GameService.Instance.UIService.GetInGameUIController().SetMarkedBombUI(MarkedBombs, bombNumber);
     }
 }

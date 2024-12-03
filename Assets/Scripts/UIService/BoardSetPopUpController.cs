@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 public class BoardSetPopUpController
 {
     private BoardSetPopUpView boardSetPopUpView;
@@ -20,6 +22,8 @@ public class BoardSetPopUpController
     {
         boardSetPopUpView.InitializeSliderValues();
         boardSetPopUpView.OpenPopUp();
+        Debug.Log("Tfff");
+        boardSetPopUpView.gameObject.SetActive(true);
     }
 
     public void StartGame()

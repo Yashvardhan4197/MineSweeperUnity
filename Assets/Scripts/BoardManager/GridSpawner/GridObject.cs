@@ -18,7 +18,6 @@ public class GridObject : MonoBehaviour,IPointerClickHandler
     private bool isMarked = false;
     private void Start()
     {
-        //gridObjectButton.onClick.AddListener(OnGridObjectClicked);
         gridObjectNumberText.text = "";
         gridObjectNumberText.gameObject.SetActive(false);
         bombImageHolder.SetActive(false);
@@ -30,7 +29,6 @@ public class GridObject : MonoBehaviour,IPointerClickHandler
 
     private void OnGridObjectClicked()
     {
-        //GridSpawner.Instance.OnGridObjectClicked(this);
         GameService.Instance.BoardManager.OnGridObjectSelected(this);
     }
 
@@ -63,6 +61,7 @@ public class GridObject : MonoBehaviour,IPointerClickHandler
         {
             markerImageHolder.gameObject.SetActive(false);
             isMarked = false;
+            GameService.Instance.BoardManager.ReduceMarkedNumber();
         }
 
         if (!isBomb)
