@@ -22,7 +22,6 @@ public class BoardSetPopUpController
     {
         boardSetPopUpView.InitializeSliderValues();
         boardSetPopUpView.OpenPopUp();
-        Debug.Log("Tfff");
         boardSetPopUpView.gameObject.SetActive(true);
     }
 

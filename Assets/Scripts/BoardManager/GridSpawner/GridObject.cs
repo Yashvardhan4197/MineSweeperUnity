@@ -1,5 +1,4 @@
 
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,6 +15,7 @@ public class GridObject : MonoBehaviour,IPointerClickHandler
     private bool isBomb = false;
     private bool isOpened = false;
     private bool isMarked = false;
+
     private void Start()
     {
         gridObjectNumberText.text = "";
@@ -91,7 +91,6 @@ public class GridObject : MonoBehaviour,IPointerClickHandler
     {
         bombImageHolder.GetComponent<Image>().sprite= bombStateImages[1];
     }
-
 
     public void SetIsMarked(bool  marker)
     {

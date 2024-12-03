@@ -26,7 +26,6 @@ public class LobbyController
     public void StartGame()
     {
         lobbyView.CloseLobby();
-        //GameService.Instance.UIService.GetInGameUIController().OnGameStart();
     }
 
 }

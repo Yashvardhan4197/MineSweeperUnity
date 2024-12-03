@@ -36,37 +36,6 @@ public class BoardManager
         GameService.Instance.WONGAME+= OpenAllBoxes;
     }
 
-    public void StartGame(int bombNumber,int boardRows,int boardCols)
-    {
-        this.boardCols = boardCols;
-        this.boardRows = boardRows;
-        this.bombNumber = bombNumber;
-        RestartGame();
-    }
-
-
-    public void RestartGame()
-    {
-        Object.Destroy(board?.gameObject);
-        bombSpawner.SetBombNumber(bombNumber);
-        gridSpawner.Init(boardRows, boardCols);
-        winManager.SetTotalBombs(bombNumber);
-        board = InstantiateBoard();
-        gridObjects = gridSpawner.SpawnGrid();
-        if (boardCols <= 10)
-        {
-            board.transform.localScale = new Vector3(1.5f, 1.5f, 0);
-        }
-        if (boardCols >= 15 || boardRows >= 15)
-        {
-            board.transform.localScale = new Vector3(1.3f, 1.3f, 0);
-        }
-        FirstGridObjectClickCheck = true;
-        markedBombs = 0;
-        GameService.Instance.UIService.GetInGameUIController().SetMarkedBombUI(MarkedBombs, bombNumber);
-    }
-
-
     private void Init()
     {
         gridSpawner = new GridSpawner(gridPrefab, spacing);
@@ -77,70 +46,36 @@ public class BoardManager
 
     private GameObject InstantiateBoard()
     {
-        GameObject board=Object.Instantiate(boardPrefab,new Vector3(0,0,0),boardPrefab.transform.rotation);
+        GameObject board = Object.Instantiate(boardPrefab, new Vector3(0, 0, 0), boardPrefab.transform.rotation);
         board.GetComponent<RectTransform>().SetParent(Object.FindObjectOfType<Canvas>().transform);
         board.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-        float totalWidth= (gridPrefab.GetComponent<RectTransform>().rect.width+spacing)*boardCols-spacing;
-        float totalHeight=(gridPrefab.GetComponent<RectTransform>().rect.height+spacing)*boardRows-spacing;
+        float totalWidth = (gridPrefab.GetComponent<RectTransform>().rect.width + spacing) * boardCols - spacing;
+        float totalHeight = (gridPrefab.GetComponent<RectTransform>().rect.height + spacing) * boardRows - spacing;
 
-        board.GetComponent<RectTransform>().sizeDelta=new Vector2((totalWidth + padding), (totalHeight + padding));
+        board.GetComponent<RectTransform>().sizeDelta = new Vector2((totalWidth + padding), (totalHeight + padding));
         Vector2 boardPos = board.GetComponent<RectTransform>().position;
 
         Vector3 newStartPos = new Vector3(boardPos.x - (totalWidth / 2) + (gridPrefab.GetComponent<RectTransform>().rect.width / 2),
-            boardPos.y + (totalHeight / 2)- (gridPrefab.GetComponent<RectTransform>().rect.height / 2), startPos.position.z);
-        
-        gridSpawner.SetTransform(newStartPos,board.GetComponent<RectTransform>());
+            boardPos.y + (totalHeight / 2) - (gridPrefab.GetComponent<RectTransform>().rect.height / 2), startPos.position.z);
+
+        gridSpawner.SetTransform(newStartPos, board.GetComponent<RectTransform>());
         board.GetComponent<RectTransform>().SetParent(boardHolder.transform);
         return board;
-    }
-
-    public void OnGridObjectSelected(GridObject currentGridObject)
-    {
-        int number = 0;
-        foreach (GridObject gridObject in gridObjects)
-        {
-            if(gridObject == currentGridObject)
-            {
-                break;
-            }
-            number++;
-        }
-        int currentRows = number / boardCols;
-        int currentCols = number % boardCols;
-
-        if(FirstGridObjectClickCheck)
-        {
-            FirstGridObjectClickCheck = false;
-            bombSpawner.SpawnBombs(currentRows,currentCols,boardCols, boardRows);
-            SetNumbersOnBoard();
-        }
-
-        if (currentGridObject.GetBomb() == true)
-        {
-            currentGridObject.ExplodeBomb();
-            GameService.Instance.LOSTGAME?.Invoke();
-        }
-        else
-        {
-            OpenBoxes(currentGridObject,currentRows,currentCols);
-        }
-        winManager.CheckWinCondition(gridObjects);
     }
 
     private void OpenAllBoxes()
     {
         foreach (GridObject gridObject in gridObjects)
         {
-            gridObject.OpenGridObject();  
+            gridObject.OpenGridObject();
         }
     }
 
-
-    private void OpenBoxes(GridObject currentGridObject,int i,int j)
+    private void OpenBoxes(GridObject currentGridObject, int i, int j)
     {
         if (currentGridObject.GetIsOpened() == true) { return; }
         if (currentGridObject.GetBomb() == false)
-        { 
+        {
             currentGridObject.OpenGridObject();
         }
         else { return; }
@@ -175,7 +110,7 @@ public class BoardManager
             if (i < boardRows - 1 && j > 0)
             {
                 int ind = (i + 1) * boardCols + (j - 1);
-                OpenBoxes(gridObjects[ind],i+1, j -1);
+                OpenBoxes(gridObjects[ind], i + 1, j - 1);
             }
             if (i < boardRows - 1 && j < boardCols - 1)
             {
@@ -194,75 +129,75 @@ public class BoardManager
 
     private void SetNumbersOnBoard()
     {
-        for(int currentInd = 0;currentInd<gridObjects.Count;currentInd++)
+        for (int currentInd = 0; currentInd < gridObjects.Count; currentInd++)
         {
             int number = 0;
-            int i=currentInd/boardCols;
-            int j= currentInd % boardCols;
-            if(i>0&&j>0)
+            int i = currentInd / boardCols;
+            int j = currentInd % boardCols;
+            if (i > 0 && j > 0)
             {
-                int ind = (i - 1) * boardCols + (j-1);
+                int ind = (i - 1) * boardCols + (j - 1);
                 if (gridObjects[ind].GetBomb() == true)
                 {
                     number++;
                 }
             }
 
-            if(i>0)
+            if (i > 0)
             {
-                int ind= (i - 1) *boardCols + (j);
+                int ind = (i - 1) * boardCols + (j);
                 if (gridObjects[ind].GetBomb() == true)
                 {
                     number++;
                 }
             }
 
-            if(i>0&&j<boardCols-1)
+            if (i > 0 && j < boardCols - 1)
             {
                 int ind = (i - 1) * boardCols + (j + 1);
-                if (gridObjects[ind].GetBomb()==true)
-                {
-                    number++;
-                }
-            }
-
-            if(j>0)
-            {
-                int ind=i*boardCols + (j-1);
-                if (gridObjects[ind].GetBomb()==true)
-                {
-                    number++;
-                }
-            }
-
-            if(j<boardCols-1)
-            {
-                int ind=i*boardCols + (j+1);
-                if (gridObjects[ind].GetBomb()==true)
-                {
-                    number++;
-                }
-            }
-
-            if(i<boardRows-1&&j>0)
-            {
-                int ind=(i+1)*boardCols + (j-1);
                 if (gridObjects[ind].GetBomb() == true)
                 {
                     number++;
                 }
             }
 
-            if(i<boardRows-1&&j<boardCols-1)
+            if (j > 0)
             {
-                int ind=(i+1)*boardCols+ (j+1);
+                int ind = i * boardCols + (j - 1);
                 if (gridObjects[ind].GetBomb() == true)
                 {
                     number++;
                 }
             }
 
-            if(i<boardRows-1)
+            if (j < boardCols - 1)
+            {
+                int ind = i * boardCols + (j + 1);
+                if (gridObjects[ind].GetBomb() == true)
+                {
+                    number++;
+                }
+            }
+
+            if (i < boardRows - 1 && j > 0)
+            {
+                int ind = (i + 1) * boardCols + (j - 1);
+                if (gridObjects[ind].GetBomb() == true)
+                {
+                    number++;
+                }
+            }
+
+            if (i < boardRows - 1 && j < boardCols - 1)
+            {
+                int ind = (i + 1) * boardCols + (j + 1);
+                if (gridObjects[ind].GetBomb() == true)
+                {
+                    number++;
+                }
+            }
+
+            if (i < boardRows - 1)
             {
                 int ind = (i + 1) * boardCols + j;
                 if (gridObjects[ind].GetBomb() == true)
@@ -272,6 +207,69 @@ public class BoardManager
             }
             gridObjects[currentInd].SetGridObjectNumber(number);
         }
+    }
+
+    public void StartGame(int bombNumber,int boardRows,int boardCols)
+    {
+        this.boardCols = boardCols;
+        this.boardRows = boardRows;
+        this.bombNumber = bombNumber;
+        RestartGame();
+    }
+
+
+    public void RestartGame()
+    {
+        Object.Destroy(board?.gameObject);
+        bombSpawner.SetBombNumber(bombNumber);
+        gridSpawner.Init(boardRows, boardCols);
+        winManager.SetTotalBombs(bombNumber);
+        board = InstantiateBoard();
+        gridObjects = gridSpawner.SpawnGrid();
+        if (boardCols <= 10)
+        {
+            board.transform.localScale = new Vector3(1.5f, 1.5f, 0);
+        }
+        if (boardCols >= 15 || boardRows >= 15)
+        {
+            board.transform.localScale = new Vector3(1.3f, 1.3f, 0);
+        }
+        FirstGridObjectClickCheck = true;
+        markedBombs = 0;
+        GameService.Instance.UIService.GetInGameUIController().SetMarkedBombUI(MarkedBombs, bombNumber);
+    }
+
+    public void OnGridObjectSelected(GridObject currentGridObject)
+    {
+        int number = 0;
+        foreach (GridObject gridObject in gridObjects)
+        {
+            if(gridObject == currentGridObject)
+            {
+                break;
+            }
+            number++;
+        }
+        int currentRows = number / boardCols;
+        int currentCols = number % boardCols;
+
+        if(FirstGridObjectClickCheck)
+        {
+            FirstGridObjectClickCheck = false;
+            bombSpawner.SpawnBombs(currentRows,currentCols,boardCols, boardRows);
+            SetNumbersOnBoard();
+        }
+
+        if (currentGridObject.GetBomb() == true)
+        {
+            currentGridObject.ExplodeBomb();
+            GameService.Instance.LOSTGAME?.Invoke();
+        }
+        else
+        {
+            OpenBoxes(currentGridObject,currentRows,currentCols);
+        }
+        winManager.CheckWinCondition(gridObjects);
     }
 
     public List<GridObject> GetGridObjects() => gridObjects;

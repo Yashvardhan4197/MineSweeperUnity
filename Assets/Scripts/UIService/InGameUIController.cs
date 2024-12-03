@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 public class InGameUIController
 {
     private InGameUIView inGameUIView;
@@ -22,7 +21,6 @@ public class InGameUIController
     {
         GameService.Instance.UIService.GetBoardSetPopUpController().OpenPopUp();
     }
-
 
     public void RestartGame()
     {
