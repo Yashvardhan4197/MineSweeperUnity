@@ -44,6 +44,7 @@ public class InGameUIView : MonoBehaviour
     {
         inGameUIController.RestartGame();
         popUpWindow?.SetActive(false);
+        pauseButton.gameObject.SetActive(true);
         gamePaused = false;
     }
 
@@ -61,6 +62,8 @@ public class InGameUIView : MonoBehaviour
             winLoseText.gameObject.SetActive(false);
             gamePaused=true;
         }
+        backgroundIMG.color = Color.grey;
+        ChangeBackgroundAlphaColor();
     }
 
     public void SetController(InGameUIController inGameUIController)
@@ -89,6 +92,7 @@ public class InGameUIView : MonoBehaviour
     {
         popUpWindow.SetActive(true);
         winLoseText.text = "YOU LOST";
+        backgroundIMG.color = Color.red;
         ChangeBackgroundAlphaColor();
         pauseButton.gameObject.SetActive(false);
     }

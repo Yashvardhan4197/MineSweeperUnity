@@ -19,6 +19,11 @@ public class BoardManager
     private bool FirstGridObjectClickCheck;
     private List<GridObject> gridObjects;
     private GameObject board;
+
+    private int markedBombs;
+    public int MarkedBombs { get { return markedBombs; } }
+
+
     public BoardManager(GameObject boardPrefab,GameObject gridPrefab,GameObject boardHolder,Transform boardStartPos,float boardPadding)
     {
         this.gridPrefab = gridPrefab;
@@ -51,6 +56,7 @@ public class BoardManager
             board.transform.localScale = new Vector3(1.3f, 1.3f, 0);
         }
         FirstGridObjectClickCheck = true;
+        markedBombs = 0;
     }
 
 
@@ -288,4 +294,23 @@ public class BoardManager
 
     public List<GridObject> GetGridObjects() => gridObjects;
 
+    public void MarkGridObject(GridObject gridObject)
+    {
+        if(gridObject.GetIsOpened()==false)
+        {
+            if(gridObject.GetIsMarked()==true)
+            {
+                gridObject.SetIsMarked(false);
+                markedBombs--;
+            }
+            else
+            {
+                if(markedBombs<bombNumber)
+                {
+                    gridObject.SetIsMarked(true);
+                    markedBombs++;
+                }
+            }
+        }
+    }
 }

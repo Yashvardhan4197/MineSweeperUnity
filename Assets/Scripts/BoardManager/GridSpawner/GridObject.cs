@@ -2,25 +2,30 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GridObject : MonoBehaviour
+public class GridObject : MonoBehaviour,IPointerClickHandler
 {
     [SerializeField] TextMeshProUGUI gridObjectNumberText;
     [SerializeField] Button gridObjectButton;
     [SerializeField] Sprite[] bombStateImages;
     [SerializeField] GameObject bombImageHolder;
+    [SerializeField] GameObject markerImageHolder;
     private int gridObjectNumber = 0;
     private bool isBomb = false;
     private bool isOpened = false;
+    private bool isMarked = false;
     private void Start()
     {
-        gridObjectButton.onClick.AddListener(OnGridObjectClicked);
+        //gridObjectButton.onClick.AddListener(OnGridObjectClicked);
         gridObjectNumberText.text = "";
         gridObjectNumberText.gameObject.SetActive(false);
         bombImageHolder.SetActive(false);
+        markerImageHolder.SetActive(false);
         isOpened = false;
         isBomb = false;
+        isMarked = false;
     }
 
     private void OnGridObjectClicked()
@@ -54,6 +59,12 @@ public class GridObject : MonoBehaviour
 
     public void OpenGridObject()
     {
+        if(isMarked==true)
+        {
+            markerImageHolder.gameObject.SetActive(false);
+            isMarked = false;
+        }
+
         if (!isBomb)
         {
             gridObjectNumberText.gameObject.SetActive(true);
@@ -75,9 +86,37 @@ public class GridObject : MonoBehaviour
         return isOpened;
     }
 
+    public bool GetIsMarked() => isMarked;
+
     public void ExplodeBomb()
     {
         bombImageHolder.GetComponent<Image>().sprite= bombStateImages[1];
     }
 
+
+    public void SetIsMarked(bool  marker)
+    {
+        if(marker)
+        {
+            isMarked = true;
+            markerImageHolder.gameObject.SetActive(true);
+        }
+        else
+        {
+            isMarked = false;
+            markerImageHolder.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button==PointerEventData.InputButton.Right)
+        {
+            GameService.Instance.BoardManager.MarkGridObject(this);
+        }
+        else if (eventData.button==PointerEventData.InputButton.Left)
+        {
+            OnGridObjectClicked();
+        }
+    }
 }

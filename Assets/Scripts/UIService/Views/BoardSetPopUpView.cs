@@ -56,7 +56,7 @@ public class BoardSetPopUpView : MonoBehaviour
         bombNumberSlider.value = 0;
         ChangeRowsValue(minColsAccepted);
         ChangeColumnsValue(minColsAccepted);
-
+        ChangeBombValue(0);
         ChangeBombMaxValue((boardSetPopUpController.BoardRows * boardSetPopUpController.BoardCols) - 8);
     }
 
