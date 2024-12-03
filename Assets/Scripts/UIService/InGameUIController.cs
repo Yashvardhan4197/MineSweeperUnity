@@ -9,12 +9,20 @@ public class InGameUIController
         this.inGameUIView = inGameUIView;
         inGameUIView.SetController(this);
         GameService.Instance.STARTGAME += OnGameStart;
+        GameService.Instance.LOSTGAME += GameLost;
+        GameService.Instance.WONGAME += GameWon;
     }
 
     public void OnGameStart()
     {
         inGameUIView.OnGameStart();
     }
+
+    public void OpenBoardSetPopUp()
+    {
+        GameService.Instance.UIService.GetBoardSetPopUpController().OpenPopUp();
+    }
+
 
     //Working
     public void RestartGame()
@@ -24,12 +32,12 @@ public class InGameUIController
 
     public void GameWon()
     {
-
+        inGameUIView.OnGameWon();
     }
 
     public void GameLost()
     {
-
+        inGameUIView.OnGameLose();
     }
 
     public void ExitGame()

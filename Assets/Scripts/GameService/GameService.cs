@@ -38,7 +38,8 @@ public class GameService : MonoBehaviour
 
     //EVENTS
     public UnityAction STARTGAME;
-
+    public UnityAction LOSTGAME;
+    public UnityAction WONGAME;
     private void Init()
     {
         boardManager=new BoardManager(boardPrefab,gridPrefab,boardHolder,startPos,padding);

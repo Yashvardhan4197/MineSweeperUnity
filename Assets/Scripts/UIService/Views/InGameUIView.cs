@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InGameUIView : MonoBehaviour
 {
     private InGameUIController inGameUIController;
-
+    [SerializeField] Image backgroundIMG;
     [SerializeField] Button pauseButton;
     [SerializeField] TextMeshProUGUI winLoseText;
     [SerializeField] GameObject popUpWindow;
@@ -30,7 +30,7 @@ public class InGameUIView : MonoBehaviour
 
     private void OpenSetGridButton()
     {
-        GameService.Instance.UIService.GetBoardSetPopUpController().OpenPopUp();
+        inGameUIController.OpenBoardSetPopUp();
     }
 
     private void ExitToLobby()
@@ -80,14 +80,24 @@ public class InGameUIView : MonoBehaviour
     {
         popUpWindow.SetActive(true);
         winLoseText.text = "YOU WON";
+        backgroundIMG.color = Color.green;
+        ChangeBackgroundAlphaColor();
         pauseButton.gameObject.SetActive(false);
     }
 
     public void OnGameLose()
     {
-        popUpWindow.SetActive(false);
+        popUpWindow.SetActive(true);
         winLoseText.text = "YOU LOST";
+        ChangeBackgroundAlphaColor();
         pauseButton.gameObject.SetActive(false);
+    }
+
+    private void ChangeBackgroundAlphaColor()
+    {
+        var temp = backgroundIMG.color;
+        temp.a = 0.6f;
+        backgroundIMG.color = temp;
     }
 
 }

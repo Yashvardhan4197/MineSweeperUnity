@@ -93,6 +93,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridObjectNumberText: {fileID: 2785054973046783124}
   gridObjectButton: {fileID: 1807968543406820218}
+  bombStateImages:
+  - {fileID: -256673600, guid: 9baca7e5672be5c4ba9a31017b47a674, type: 3}
+  - {fileID: 1975840958, guid: 9baca7e5672be5c4ba9a31017b47a674, type: 3}
+  bombImageHolder: {fileID: 1922466347989195144}
 --- !u!114 &1807968543406820218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,12 +153,12 @@ GameObject:
   - component: {fileID: 4524484772005591545}
   - component: {fileID: 1428492132254804033}
   m_Layer: 5
-  m_Name: StateImage
+  m_Name: bombImageHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9031722902785998151
 RectTransform:
   m_ObjectHideFlags: 0
@@ -171,8 +175,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1.8, y: 1.4}
+  m_SizeDelta: {x: -10.77, y: -13.9376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4524484772005591545
 CanvasRenderer:
@@ -204,7 +208,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 996186522, guid: 9baca7e5672be5c4ba9a31017b47a674, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

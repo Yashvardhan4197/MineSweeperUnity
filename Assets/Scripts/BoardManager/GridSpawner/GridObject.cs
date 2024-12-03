@@ -8,6 +8,8 @@ public class GridObject : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI gridObjectNumberText;
     [SerializeField] Button gridObjectButton;
+    [SerializeField] Sprite[] bombStateImages;
+    [SerializeField] GameObject bombImageHolder;
     private int gridObjectNumber = 0;
     private bool isBomb = false;
     private bool isOpened = false;
@@ -16,6 +18,7 @@ public class GridObject : MonoBehaviour
         gridObjectButton.onClick.AddListener(OnGridObjectClicked);
         gridObjectNumberText.text = "";
         gridObjectNumberText.gameObject.SetActive(false);
+        bombImageHolder.SetActive(false);
         isOpened = false;
         isBomb = false;
     }
@@ -44,13 +47,21 @@ public class GridObject : MonoBehaviour
         }
         else
         {
-            gridObjectNumberText.text = "X";
+            gridObjectNumberText.text = "";
+            bombImageHolder.GetComponent<Image>().sprite = bombStateImages[0];
         }
     }
 
     public void OpenGridObject()
     {
-        gridObjectNumberText.gameObject.SetActive(true);
+        if (!isBomb)
+        {
+            gridObjectNumberText.gameObject.SetActive(true);
+        }
+        else
+        {
+            bombImageHolder.gameObject.SetActive(true);
+        }
         isOpened = true;
         this.gameObject.GetComponent<Image>().color= Color.grey;
     }
@@ -62,6 +73,11 @@ public class GridObject : MonoBehaviour
     public bool GetIsOpened()
     {
         return isOpened;
+    }
+
+    public void ExplodeBomb()
+    {
+        bombImageHolder.GetComponent<Image>().sprite= bombStateImages[1];
     }
 
 }

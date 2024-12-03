@@ -26,6 +26,7 @@ public class WinManager
         if(boxesOpened==gridObjects.Count-totalBombs)
         {
             Debug.Log("GAME-WON");
+            GameService.Instance.WONGAME?.Invoke();
         }
     }
 }

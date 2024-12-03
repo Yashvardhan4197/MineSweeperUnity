@@ -27,6 +27,8 @@ public class BoardManager
         startPos = boardStartPos;
         padding = boardPadding;
         Init();
+        GameService.Instance.LOSTGAME += OpenAllBoxes;
+        GameService.Instance.WONGAME+= OpenAllBoxes;
     }
 
     public void StartGame(int bombNumber,int boardRows,int boardCols)
@@ -123,6 +125,8 @@ public class BoardManager
         if (currentGridObject.GetBomb() == true)
         {
             Debug.Log("You Lost");
+            currentGridObject.ExplodeBomb();
+            GameService.Instance.LOSTGAME?.Invoke();
         }
         else
         {
@@ -130,6 +134,15 @@ public class BoardManager
         }
         winManager.CheckWinCondition(gridObjects);
     }
+
+    private void OpenAllBoxes()
+    {
+        foreach (GridObject gridObject in gridObjects)
+        {
+            gridObject.OpenGridObject();  
+        }
+    }
+
 
     private void OpenBoxes(GridObject currentGridObject,int i,int j)
     {
@@ -187,7 +200,7 @@ public class BoardManager
 
     }
 
-    public void SetNumbersOnBoard()
+    private void SetNumbersOnBoard()
     {
         for(int currentInd = 0;currentInd<gridObjects.Count;currentInd++)
         {
