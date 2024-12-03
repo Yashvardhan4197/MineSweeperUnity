@@ -43,3 +43,11 @@ A customizable Minesweeper game built using Unity with clean, scalable architect
 
     - A dedicated service to manage sound effects, ensuring smooth integration across the game's components.
 ---
+## SCREENSHOTS
+<img src="https://github.com/user-attachments/assets/3ee079e2-1514-491b-baaf-0df1dee27af8" alt="Screenshot 1" width="400" height="600" style="margin: 20px;">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/user-attachments/assets/2b7f1579-081e-41e7-9d8b-4ef5259bd221" alt="Screenshot 2" width="400" height="600">
+<br><br>
+<img src="https://github.com/user-attachments/assets/c6bb5479-ddb9-4a4c-a18b-3bd119e56d81" alt="Screenshot 3" width="400" height="600" style="margin: 20px;">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/user-attachments/assets/3c8615d6-ef6d-4a27-8c78-e89ef81d82e8" alt="Screenshot 4" width="400" height="600">
