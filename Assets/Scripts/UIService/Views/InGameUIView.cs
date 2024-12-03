@@ -91,6 +91,7 @@ public class InGameUIView : MonoBehaviour
         ChangeBackgroundAlphaColor();
         pauseButton.gameObject.SetActive(false);
         bombMarkerText.gameObject.SetActive(false);
+        winLoseText.gameObject.SetActive(true) ;
     }
 
     public void OnGameLose()
@@ -101,6 +102,7 @@ public class InGameUIView : MonoBehaviour
         ChangeBackgroundAlphaColor();
         pauseButton.gameObject.SetActive(false);
         bombMarkerText.gameObject.SetActive(false);
+        winLoseText.gameObject.SetActive(true) ;
     }
 
     private void ChangeBackgroundAlphaColor()
