@@ -33,6 +33,7 @@ public class InGameUIView : MonoBehaviour
     private void OpenSetGridButton()
     {
         inGameUIController.OpenBoardSetPopUp();
+        GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
     }
 
     private void ExitToLobby()
@@ -40,6 +41,7 @@ public class InGameUIView : MonoBehaviour
         inGameUIController.ExitGame();
         pauseButton.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
+        GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
     }
 
     private void RestartGame()
@@ -49,6 +51,7 @@ public class InGameUIView : MonoBehaviour
         pauseButton.gameObject.SetActive(true);
         bombMarkerText.gameObject.SetActive(true);
         gamePaused = false;
+        GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
     }
 
     private void PauseGame()
@@ -67,6 +70,8 @@ public class InGameUIView : MonoBehaviour
         }
         backgroundIMG.color = Color.grey;
         ChangeBackgroundAlphaColor();
+        GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
+
     }
 
     public void SetController(InGameUIController inGameUIController)
@@ -92,6 +97,7 @@ public class InGameUIView : MonoBehaviour
         pauseButton.gameObject.SetActive(false);
         bombMarkerText.gameObject.SetActive(false);
         winLoseText.gameObject.SetActive(true) ;
+        GameService.Instance.SoundService.PlaySFX(SoundNames.WIN);
     }
 
     public void OnGameLose()
@@ -102,7 +108,8 @@ public class InGameUIView : MonoBehaviour
         ChangeBackgroundAlphaColor();
         pauseButton.gameObject.SetActive(false);
         bombMarkerText.gameObject.SetActive(false);
-        winLoseText.gameObject.SetActive(true) ;
+        winLoseText.gameObject.SetActive(true);
+        GameService.Instance.SoundService.PlaySFX(SoundNames.LOST);
     }
 
     private void ChangeBackgroundAlphaColor()

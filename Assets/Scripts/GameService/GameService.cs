@@ -29,6 +29,9 @@ public class GameService : MonoBehaviour
     [SerializeField] GameObject boardHolder;
     [SerializeField] Transform startPos;
     [SerializeField] float padding;
+    [SerializeField] SoundTypes[] soundTypes;
+    [SerializeField] AudioSource bgAudioSource;
+    [SerializeField] AudioSource sFXAudioSource;
     #endregion
 
     #region VIEWS
@@ -41,8 +44,10 @@ public class GameService : MonoBehaviour
     #region SERVICES
     private BoardManager boardManager;
     private UIService uIService;
+    private SoundService soundService;
     public BoardManager BoardManager {  get { return boardManager; } }
     public UIService UIService { get { return uIService; } }
+    public SoundService SoundService { get { return soundService; } }
     #endregion
 
     #region EVENTS
@@ -56,11 +61,13 @@ public class GameService : MonoBehaviour
     {
         boardManager=new BoardManager(boardPrefab,gridPrefab,boardHolder,startPos,padding);
         uIService= new UIService(lobbyView,inGameUIView,boardSetPopUpView);
+        soundService = new SoundService(sFXAudioSource,bgAudioSource,soundTypes);
         OpenLobby();
     }
     public void OpenLobby()
     {
         uIService.GetLobbyController().OpenLobbyScreen();
+        soundService.PlayBackGroundMusic();
     }
 
 

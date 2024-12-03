@@ -105,12 +105,13 @@ public class BoardSetPopUpView : MonoBehaviour
     private void StartGame()
     {
         boardSetPopUpController.StartGame();
-
+        GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
         this.gameObject.SetActive(false);
     }
 
     private void GobackToLobby()
     {
+        GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
         this.gameObject.SetActive(false);
     }
 

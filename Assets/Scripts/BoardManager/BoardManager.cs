@@ -76,6 +76,7 @@ public class BoardManager
         if (currentGridObject.GetIsOpened() == true) { return; }
         if (currentGridObject.GetBomb() == false)
         {
+            GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
             currentGridObject.OpenGridObject();
         }
         else { return; }
@@ -282,6 +283,7 @@ public class BoardManager
             {
                 gridObject.SetIsMarked(false);
                 markedBombs--;
+                GameService.Instance.SoundService.PlaySFX(SoundNames.MARKED);
             }
             else
             {
@@ -289,9 +291,19 @@ public class BoardManager
                 {
                     gridObject.SetIsMarked(true);
                     markedBombs++;
+                    GameService.Instance.SoundService.PlaySFX(SoundNames.MARKED);
+                }
+                else
+                {
+                    GameService.Instance.SoundService.PlaySFX(SoundNames.DENY);
                 }
             }
             GameService.Instance.UIService.GetInGameUIController().SetMarkedBombUI(MarkedBombs, bombNumber);
+            
+        }
+        else
+        {
+            GameService.Instance.SoundService.PlaySFX(SoundNames.DENY);
         }
         
     }

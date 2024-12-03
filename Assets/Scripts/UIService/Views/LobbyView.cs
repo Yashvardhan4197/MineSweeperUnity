@@ -19,11 +19,13 @@ public class LobbyView : MonoBehaviour
     private void ExitGame()
     {
         lobbyController.ExitGame();
+        GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
     }
 
     private void OnStartGameButtonClicked()
     {
         GameService.Instance.UIService.GetBoardSetPopUpController().OpenPopUp();
+        GameService.Instance.SoundService.PlaySFX(SoundNames.CLICK);
     }
 
     public void SetController(LobbyController lobbyController)
