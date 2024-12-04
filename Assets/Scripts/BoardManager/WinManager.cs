@@ -1,7 +1,6 @@
 ﻿
 
 using System.Collections.Generic;
-using UnityEngine;
 
 public class WinManager
 {
@@ -25,7 +24,6 @@ public class WinManager
         }
         if(boxesOpened==gridObjects.Count-totalBombs)
         {
-            Debug.Log("GAME-WON");
             GameService.Instance.WONGAME?.Invoke();
         }
     }

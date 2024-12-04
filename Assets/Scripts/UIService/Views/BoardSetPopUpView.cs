@@ -1,4 +1,5 @@
 
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,14 @@ public class BoardSetPopUpView : MonoBehaviour
     [SerializeField] TextMeshProUGUI boardRowsNumberText;
     [SerializeField] TextMeshProUGUI bombNumberText;
 
+    [SerializeField] Button decrementBombButton;
+    [SerializeField] Button incrementBombButton;
+
+    [SerializeField] Button incrementRowsButton;
+    [SerializeField] Button decrementRowsButton;
+
+    [SerializeField] Button incrementColumnButton;
+    [SerializeField] Button decrementColumnButton;
 
     [SerializeField] int minColsAccepted;
     [SerializeField] int maxColsAccepted;
@@ -25,12 +34,81 @@ public class BoardSetPopUpView : MonoBehaviour
     private void Start()
     {
         this.gameObject.SetActive(false);
+        SetupButtonListeners();
+        InitializeSliderValues();
+    }
+
+    private void SetupButtonListeners()
+    {
         boardColsSlider.onValueChanged.AddListener(ChangeColumnsValue);
         boardRowsSlider.onValueChanged.AddListener(ChangeRowsValue);
         bombNumberSlider.onValueChanged.AddListener(ChangeBombValue);
         setGridAndStartButton.onClick.AddListener(StartGame);
         GoBackFromSetGridPopUpButton.onClick.AddListener(GobackToLobby);
-        InitializeSliderValues();
+        decrementBombButton.onClick.AddListener(DecrementBombValue);
+        incrementBombButton.onClick.AddListener(IncrementBombValue);
+        decrementColumnButton.onClick.AddListener(DecrementColumnValue);
+        incrementColumnButton.onClick.AddListener(IncrementColumnValue);
+        decrementRowsButton.onClick.AddListener(DecrementRowValue);
+        incrementRowsButton.onClick.AddListener(IncrementRowValue);
+    }
+
+
+    private void IncrementRowValue()
+    {
+        if(boardRowsSlider.value < boardRowsSlider.maxValue)
+        {
+            boardRowsSlider.value++;
+            ChangeRowsValue(boardRowsSlider.value);
+        }
+    }
+
+    private void DecrementRowValue()
+    {
+        if (boardRowsSlider.value > boardRowsSlider.minValue)
+        {
+            boardRowsSlider.value--;
+            ChangeRowsValue(boardRowsSlider.value);
+        }
+    }
+
+
+    private void IncrementColumnValue()
+    {
+        if (boardColsSlider.value < boardColsSlider.maxValue)
+        {
+            boardColsSlider.value++;
+            ChangeColumnsValue(boardColsSlider.value);
+        }
+    }
+
+    private void DecrementColumnValue()
+    {
+        if (boardColsSlider.value > boardColsSlider.minValue)
+        {
+            boardColsSlider.value--;
+            ChangeColumnsValue(boardColsSlider.value);
+        }
+    }
+
+    private void IncrementBombValue()
+    {
+        
+        if(bombNumberSlider.value < bombNumberSlider.maxValue)
+        {
+            bombNumberSlider.value++;
+            ChangeBombValue(bombNumberSlider.value);
+        }
+    }
+
+    private void DecrementBombValue()
+    {
+        
+        if (bombNumberSlider.value > bombNumberSlider.minValue)
+        {
+            bombNumberSlider.value--;
+            ChangeBombValue(bombNumberSlider.value);
+        }
     }
 
     public void SetController(BoardSetPopUpController controller)
