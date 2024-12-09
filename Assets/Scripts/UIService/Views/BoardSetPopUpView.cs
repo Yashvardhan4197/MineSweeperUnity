@@ -30,6 +30,7 @@ public class BoardSetPopUpView : MonoBehaviour
     [SerializeField] int maxColsAccepted;
     [SerializeField] int minRowsAccepted;
     [SerializeField] int maxRowsAccepted;
+    [SerializeField] int minBombsAccepted;
 
     private void Start()
     {
@@ -127,26 +128,27 @@ public class BoardSetPopUpView : MonoBehaviour
         boardRowsSlider.minValue = minRowsAccepted;
         boardColsSlider.maxValue = maxColsAccepted;
         boardRowsSlider.maxValue = maxRowsAccepted;
+        bombNumberSlider.minValue=minBombsAccepted;
         boardColsSlider.value = minColsAccepted;
         boardRowsSlider.value = minRowsAccepted;
+        bombNumberSlider.value=minBombsAccepted;
         boardSetPopUpController.SetBoardRows(minRowsAccepted);
         boardSetPopUpController.SetBoardCols(minColsAccepted);
-        bombNumberSlider.value = 0;
+        ChangeBombValue(minBombsAccepted);
         ChangeRowsValue(minColsAccepted);
         ChangeColumnsValue(minColsAccepted);
-        ChangeBombValue(0);
         ChangeBombMaxValue((boardSetPopUpController.BoardRows * boardSetPopUpController.BoardCols) - 8);
     }
 
     private void ChangeBombMaxValue(int bomb)
     {
-        if (bomb > 0)
+        if (bomb > minBombsAccepted)
         {
             bombNumberSlider.maxValue = bomb;
         }
         else
         {
-            bombNumberSlider.maxValue = 0;
+            bombNumberSlider.maxValue = minBombsAccepted;
         }
 
         if (bombNumberSlider.value >= bomb)

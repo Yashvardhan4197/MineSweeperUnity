@@ -1175,18 +1175,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2448911772144791928, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_Spacing
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 2448911772144791928, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_ChildAlignment
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2448911772144791928, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_Padding.m_Left
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3506915090604453996, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1275,30 +1263,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5905549146156967080, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 3e7147dc7f2657349b9ea40fae907ec3, type: 3}
-    - target: {fileID: 5905549146156967080, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5905549146156967080, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5905549146156967080, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6129070171424932459, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
       propertyPath: m_Name
       value: BoardSetUpPopUpView
       objectReference: {fileID: 0}
-    - target: {fileID: 6129070171424932459, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6430819680248209309, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1366,10 +1334,6 @@ PrefabInstance:
     - target: {fileID: 8542141142658783748, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8542141142658783748, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 234
       objectReference: {fileID: 0}
     - target: {fileID: 8542141142658783748, guid: b62cf52c938287f45a2e2b5830a44eb6, type: 3}
       propertyPath: m_AnchoredPosition.x

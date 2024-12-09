@@ -6,7 +6,7 @@ public class BombSpawner
 {
     private int bombNumber;
 
-    private List<int> GetNonBombIndexes(List<GridObject> gridObjects, int i, int j, int totalCols, int totalRows)
+    private List<int> GetNonBombIndexes(int i, int j, int totalCols, int totalRows)
     {
         List<int> NonBombIndexes = new List<int>();
         if (i > 0 && j > 0)
@@ -61,11 +61,16 @@ public class BombSpawner
     public void SpawnBombs(int currentRow,int currentCol, int totalCols, int totalRows)
     {
         List<GridObject> gridObjects=GameService.Instance.BoardManager.GetGridObjects();
-        List<int> nonBombIndexes= GetNonBombIndexes(gridObjects,currentRow,currentCol,totalCols, totalRows);
+        List<int> nonBombIndexes= GetNonBombIndexes(currentRow,currentCol,totalCols, totalRows);
         int temp2=bombNumber;
-        while(temp2!=0)
+        if (bombNumber <= 2)
         {
-            int temp = Random.Range(0, gridObjects.Count);
+            ExtendNonBombIndexes(nonBombIndexes, totalRows, totalCols);
+        }
+        while (temp2!=0)
+        {
+            int temp;
+            temp = Random.Range(0, gridObjects.Count);
             if (!nonBombIndexes.Contains(temp))
             {
                 if (gridObjects[temp].GetBomb() == false)
@@ -74,6 +79,20 @@ public class BombSpawner
                     temp2--;
                 }
             }
+        }
+    }
+
+    private void ExtendNonBombIndexes(List<int> nonBombIndexes, int totalRows, int totalCols)
+    {
+        for (int i = 0; i < totalRows; i++)
+        {
+            nonBombIndexes.Add(i * totalCols + 0);
+            nonBombIndexes.Add(i * totalCols + totalCols - 1);
+        }
+        for(int j=0;j<totalCols;j++)
+        {
+            nonBombIndexes.Add(0*totalCols + j);
+            nonBombIndexes.Add((totalRows - 1) * totalCols + j);
         }
     }
 
