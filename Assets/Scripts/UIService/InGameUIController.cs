@@ -19,7 +19,7 @@ public class InGameUIController
 
     public void OpenBoardSetPopUp()
     {
-        GameService.Instance.UIService.GetBoardSetPopUpController().OpenPopUp();
+        GameService.Instance.UIService.GetBoardSetPopUpController().OpenPopUpUnchanged();
     }
 
     public void RestartGame()

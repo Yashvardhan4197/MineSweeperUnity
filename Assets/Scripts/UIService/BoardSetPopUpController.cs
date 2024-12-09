@@ -24,6 +24,12 @@ public class BoardSetPopUpController
         boardSetPopUpView.OpenPopUp();
         boardSetPopUpView.gameObject.SetActive(true);
     }
+    public void OpenPopUpUnchanged()
+    {
+        boardSetPopUpView.InitializeSliderValuesUnchanged();
+        boardSetPopUpView.OpenPopUp();
+        boardSetPopUpView.gameObject.SetActive(true);
+    }
 
     public void StartGame()
     {

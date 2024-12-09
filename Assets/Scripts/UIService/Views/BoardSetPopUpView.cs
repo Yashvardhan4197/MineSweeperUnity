@@ -123,7 +123,6 @@ public class BoardSetPopUpView : MonoBehaviour
 
     public void InitializeSliderValues()
     {
-        bombNumberSlider.minValue = 0;
         boardColsSlider.minValue = minColsAccepted;
         boardRowsSlider.minValue = minRowsAccepted;
         boardColsSlider.maxValue = maxColsAccepted;
@@ -138,6 +137,22 @@ public class BoardSetPopUpView : MonoBehaviour
         ChangeRowsValue(minColsAccepted);
         ChangeColumnsValue(minColsAccepted);
         ChangeBombMaxValue((boardSetPopUpController.BoardRows * boardSetPopUpController.BoardCols) - 8);
+    }
+
+    public void InitializeSliderValuesUnchanged()
+    {
+        boardColsSlider.minValue = minColsAccepted;
+        boardRowsSlider.minValue = minRowsAccepted;
+        boardColsSlider.maxValue = maxColsAccepted;
+        boardRowsSlider.maxValue = maxRowsAccepted;
+        bombNumberSlider.minValue = minBombsAccepted;
+        boardColsSlider.value = boardSetPopUpController.BoardCols;
+        boardRowsSlider.value = boardSetPopUpController.BoardRows;
+        ChangeRowsValue(boardSetPopUpController.BoardRows);
+        ChangeColumnsValue(boardSetPopUpController.BoardCols);
+        ChangeBombMaxValue((boardSetPopUpController.BoardRows * boardSetPopUpController.BoardCols) - 8);
+        ChangeBombValue(boardSetPopUpController.BombNumber);
+        bombNumberSlider.value = boardSetPopUpController.BombNumber;
     }
 
     private void ChangeBombMaxValue(int bomb)
