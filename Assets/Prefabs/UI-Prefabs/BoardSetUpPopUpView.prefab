@@ -3170,9 +3170,9 @@ MonoBehaviour:
   decrementRowsButton: {fileID: 7187489006034942280}
   incrementColumnButton: {fileID: 753805908588631989}
   decrementColumnButton: {fileID: 2781139717325940536}
-  minColsAccepted: 5
+  minColsAccepted: 6
   maxColsAccepted: 15
-  minRowsAccepted: 5
+  minRowsAccepted: 6
   maxRowsAccepted: 20
   minBombsAccepted: 1
 --- !u!1 &6138126836872104217

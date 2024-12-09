@@ -65,7 +65,12 @@ public class BombSpawner
         int temp2=bombNumber;
         if (bombNumber <= 2)
         {
-            ExtendNonBombIndexes(nonBombIndexes, totalRows, totalCols);
+            List<int> tempNonBombIndexes = nonBombIndexes;
+            ExtendNonBombIndexes(tempNonBombIndexes, totalRows, totalCols);
+            if(tempNonBombIndexes.Count<gridObjects.Count)
+            {
+                nonBombIndexes = tempNonBombIndexes;
+            }
         }
         while (temp2!=0)
         {
